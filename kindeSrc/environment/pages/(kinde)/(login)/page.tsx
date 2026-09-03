@@ -81,7 +81,11 @@ box-shadow:0 12px 26px -14px rgba(20,20,25,.75);transition:transform .15s ease,b
 /* everything else that is a button stays quiet: password eye, resend, back */
 #kinde-widget button:not([type="submit"]){
 background:transparent;border:0;color:var(--rota-ink-soft);font-family:var(--rota-font-body);
-font-size:13px;font-weight:500;padding:0;width:auto;box-shadow:none;cursor:pointer}
+font-size:13px;font-weight:500;width:auto;box-shadow:none;cursor:pointer;
+display:inline-flex;align-items:center;justify-content:center;min-width:34px;min-height:34px;
+position:relative;z-index:5;pointer-events:auto}
+#kinde-widget input[type="password"],#kinde-widget input[type="text"]{padding-right:44px}
+#kinde-widget button svg{width:18px;height:18px;pointer-events:none}
 #kinde-widget button:not([type="submit"]):hover{color:var(--rota-ink)}
 
 /* secondary links (reset password, can't sign in, create account) */
