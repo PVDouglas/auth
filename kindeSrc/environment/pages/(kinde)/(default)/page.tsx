@@ -94,8 +94,24 @@ color:var(--rota-danger);border-radius:var(--rota-radius);padding:10px 13px;font
 @media (max-width:420px){.auth-card{padding:24px 18px 20px;border-radius:24px}.auth-card h1{font-size:23px}}
 `;
 
-const Page = async ({ context, request }: KindePageEvent): Promise<string> =>
-  renderToString(
+const Page = async ({ context, request }: KindePageEvent): Promise<string> => {
+  // Kinde routes several flows through this page (email verification, one-time
+  // codes, password reset). Pick copy that matches what the person is doing so
+  // the code screen actually tells them a code has been emailed.
+  const pageTitle = String(context?.widget?.content?.pageTitle ?? "");
+  const hint = `${pageTitle} ${String((request as { url?: string })?.url ?? "")}`.toLowerCase();
+
+  const isCode = /code|verify|otp|confirm/.test(hint);
+  const isPassword = /password/.test(hint) && !isCode;
+
+  const heading = isCode ? "Check your email" : isPassword ? "Choose a new password" : "Continue";
+  const subtitle = isCode
+    ? "We've emailed you a 6-digit code. Enter it below to continue — it expires in 10 minutes."
+    : isPassword
+      ? "Pick something you haven't used before. You'll be signed out of other devices."
+      : "Verify your details to continue to your rota.";
+
+  return renderToString(
     <html lang={request.locale.lang} dir={request.locale.isRtl ? "rtl" : "ltr"}>
       <head>
         <meta charSet="utf-8" />
@@ -120,12 +136,15 @@ const Page = async ({ context, request }: KindePageEvent): Promise<string> =>
 
           <div className="auth-card">
             <p className="auth-eyebrow">Rota.Website</p>
-            <h1>Continue</h1>
-            <p className="auth-sub">Verify your details to continue to your rota.</p>
+            <h1>{heading}</h1>
+            <p className="auth-sub">{subtitle}</p>
 
             <div id="kinde-widget">{getKindeWidget()}</div>
 
-            <div className="auth-foot">Need help? <a href="https://rota.website/support">Contact support</a></div>
+            <div className="auth-foot">
+              {isCode ? "Didn't arrive? Check your spam folder, or use the resend link above. " : "Need help? "}
+              <a href="https://rota.website/support">Contact support</a>
+            </div>
           </div>
 
           <p className="auth-trust">Biometric &amp; 2FA ready · UK data · Secured by Kinde</p>
@@ -134,5 +153,6 @@ const Page = async ({ context, request }: KindePageEvent): Promise<string> =>
       </body>
     </html>,
   );
+};
 
 export default Page;
