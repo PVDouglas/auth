@@ -43,6 +43,7 @@ border:1px solid rgba(255,255,255,.6);box-shadow:0 24px 60px -24px rgba(20,20,25
 .auth-foot{margin-top:18px;padding-top:14px;border-top:1px solid var(--rota-line);text-align:center;font-size:11.5px;color:var(--rota-ink-soft)}
 .auth-foot a{color:var(--rota-ink);font-weight:600;text-decoration:none}
 .auth-foot a:hover{text-decoration:underline}
+.auth-hint{margin:2px 0 0;text-align:center;font-size:11.5px;color:var(--rota-ink-soft)}
 .auth-trust{margin-top:18px;text-align:center;font-size:11px;color:var(--rota-ink-soft)}
 
 /* ---- widget: keep Kinde's own layout, only restyle the leaf controls ---- */
@@ -63,10 +64,22 @@ transition:border-color .15s ease,box-shadow .15s ease,background .15s ease}
 #kinde-widget input:focus,#kinde-widget select:focus{outline:none;background:#fff;
 border-color:rgba(28,28,28,.35);box-shadow:0 0 0 4px rgba(28,28,28,.08)}
 
-/* one-time-code boxes */
+/* one-time-code: six segment underlines, monospace so the digits line up */
 #kinde-widget input[inputmode="numeric"],
-#kinde-widget input[autocomplete="one-time-code"]{
-text-align:center;font-family:var(--rota-font-display);font-size:1.3rem;font-weight:600;padding:12px 6px}
+#kinde-widget input[autocomplete="one-time-code"],
+#kinde-widget input[name*="code" i]{
+display:block;margin:2px auto 4px;width:216px;max-width:100%;border:0;border-radius:0;
+background-color:transparent;background-repeat:no-repeat;background-position:left bottom;
+background-size:216px 2px;
+background-image:repeating-linear-gradient(90deg,rgba(28,28,28,.28) 0 30px,transparent 30px 36px);
+font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+font-size:30px;font-weight:600;line-height:1.1;letter-spacing:18px;text-indent:18px;
+text-align:left;padding:6px 0 12px;caret-color:var(--rota-ink)}
+#kinde-widget input[inputmode="numeric"]:focus,
+#kinde-widget input[autocomplete="one-time-code"]:focus,
+#kinde-widget input[name*="code" i]:focus{
+outline:none;box-shadow:none;background-color:transparent;
+background-image:repeating-linear-gradient(90deg,var(--rota-ink) 0 30px,transparent 30px 36px)}
 
 /* primary action only — never links or icon buttons */
 #kinde-widget button[type="submit"],
@@ -103,9 +116,17 @@ const Page = async ({ context, request }: KindePageEvent): Promise<string> => {
   // codes, password reset). Pick copy that matches what the person is doing so
   // the code screen actually tells them a code has been emailed.
   const pageTitle = String(context?.widget?.content?.pageTitle ?? "");
-  const hint = `${pageTitle} ${String((request as { url?: string })?.url ?? "")}`.toLowerCase();
+  // Kinde does not expose the flow name in one fixed place, so scan everything
+  // it hands us (page title, request url, auth params) for the tell-tale words.
+  let blob = "";
+  try {
+    blob = JSON.stringify({ context, request });
+  } catch {
+    blob = "";
+  }
+  const hint = `${pageTitle} ${blob}`.toLowerCase();
 
-  const isCode = /code|verify|otp|confirm/.test(hint);
+  const isCode = /one[_-]?time|otp|verify_email|verify email|enter[_ ]?code|confirm code|\bcode\b/.test(hint);
   const isPassword = /password/.test(hint) && !isCode;
 
   const heading = isCode ? "Check your email" : isPassword ? "Choose a new password" : "Continue";
@@ -144,6 +165,10 @@ const Page = async ({ context, request }: KindePageEvent): Promise<string> => {
             <p className="auth-sub">{subtitle}</p>
 
             <div id="kinde-widget">{getKindeWidget()}</div>
+
+            {isCode ? (
+              <p className="auth-hint">Enter the 6 digits exactly as they appear in the email.</p>
+            ) : null}
 
             <div className="auth-foot">
               {isCode ? "Didn't arrive? Check your spam folder, or use the resend link above. " : "Need help? "}
