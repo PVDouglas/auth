@@ -64,22 +64,24 @@ transition:border-color .15s ease,box-shadow .15s ease,background .15s ease}
 #kinde-widget input:focus,#kinde-widget select:focus{outline:none;background:#fff;
 border-color:rgba(28,28,28,.35);box-shadow:0 0 0 4px rgba(28,28,28,.08)}
 
-/* one-time-code: six segment underlines, monospace so the digits line up */
+/* one-time-code: six rounded slots drawn behind one monospace field */
 #kinde-widget input[inputmode="numeric"],
 #kinde-widget input[autocomplete="one-time-code"],
 #kinde-widget input[name*="code" i]{
-display:block;margin:2px auto 4px;width:216px;max-width:100%;border:0;border-radius:0;
-background-color:transparent;background-repeat:no-repeat;background-position:left bottom;
-background-size:216px 2px;
-background-image:repeating-linear-gradient(90deg,rgba(28,28,28,.28) 0 30px,transparent 30px 36px);
+display:block;margin:6px auto 6px;width:288px;max-width:100%;height:56px;border:0;border-radius:0;
+background-color:transparent;background-repeat:repeat-x;background-position:left center;
+background-size:48px 56px;
+background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="56"><rect x="1.5" y="1.5" width="41" height="53" rx="13" ry="13" fill="rgba(255,255,255,0.85)" stroke="rgba(28,28,28,0.14)" stroke-width="1.5"/></svg>');
 font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
-font-size:30px;font-weight:600;line-height:1.1;letter-spacing:18px;text-indent:18px;
-text-align:left;padding:6px 0 12px;caret-color:var(--rota-ink)}
+font-size:22px;font-weight:600;line-height:56px;
+letter-spacing:calc(48px - 1ch);text-indent:calc((42px - 1ch) / 2);
+text-align:left;padding:0;caret-color:var(--rota-ink);box-shadow:none}
 #kinde-widget input[inputmode="numeric"]:focus,
 #kinde-widget input[autocomplete="one-time-code"]:focus,
 #kinde-widget input[name*="code" i]:focus{
 outline:none;box-shadow:none;background-color:transparent;
-background-image:repeating-linear-gradient(90deg,var(--rota-ink) 0 30px,transparent 30px 36px)}
+background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="56"><rect x="1.5" y="1.5" width="41" height="53" rx="13" ry="13" fill="%23ffffff" stroke="rgba(28,28,28,0.4)" stroke-width="1.5"/></svg>')}
+
 
 /* primary action only — never links or icon buttons */
 #kinde-widget button[type="submit"],
@@ -90,6 +92,11 @@ font-family:var(--rota-font-body);font-size:14px;font-weight:600;cursor:pointer;
 box-shadow:0 12px 26px -14px rgba(20,20,25,.75);transition:transform .15s ease,box-shadow .15s ease}
 #kinde-widget button[type="submit"]:hover{transform:translateY(-1px);box-shadow:0 20px 36px -18px rgba(20,20,25,.75)}
 #kinde-widget button[type="submit"]:disabled{opacity:.55;transform:none;cursor:default}
+/* a second form on the same screen (resend code) is the quieter action */
+#kinde-widget form ~ form button[type="submit"]{
+background:rgba(255,255,255,.7);color:var(--rota-ink);border:1px solid var(--rota-line);
+box-shadow:none;font-weight:500;padding:11px 22px}
+#kinde-widget form ~ form button[type="submit"]:hover{background:#fff;transform:none;box-shadow:none}
 
 /* everything else that is a button stays quiet: password eye, resend, back */
 #kinde-widget button:not([type="submit"]){
@@ -97,7 +104,8 @@ background:transparent;border:0;color:var(--rota-ink-soft);font-family:var(--rot
 font-size:13px;font-weight:500;width:auto;box-shadow:none;cursor:pointer;
 display:inline-flex;align-items:center;justify-content:center;min-width:34px;min-height:34px;
 position:relative;z-index:5;pointer-events:auto}
-#kinde-widget input[type="password"],#kinde-widget input[type="text"]{padding-right:44px}
+#kinde-widget input[type="password"],
+#kinde-widget input[type="text"]:not([inputmode="numeric"]):not([autocomplete="one-time-code"]):not([name*="code" i]){padding-right:44px}
 #kinde-widget button svg{width:18px;height:18px;pointer-events:none}
 #kinde-widget button:not([type="submit"]):hover{color:var(--rota-ink)}
 
