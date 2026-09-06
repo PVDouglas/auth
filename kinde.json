@@ -1,4 +1,16 @@
 {
-  "version": "2024-12-09",
-  "rootDir": "kindeSrc"
+  "version": 1,
+  "name": "Rota.Website auth",
+  "rootDir": ".",
+  "pages": {
+    "sign_in": "pages/sign_in.html",
+    "sign_up": "pages/sign_up.html",
+    "enter_password": "pages/enter_password.html",
+    "enter_code": "pages/enter_code.html",
+    "mfa": "pages/mfa.html",
+    "reset_password": "pages/reset_password.html"
+  },
+  "assets": {
+    "styles": ["styles/main.css"]
+  }
 }

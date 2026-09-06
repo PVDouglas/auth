@@ -1,0 +1,136 @@
+Rota.Website — Kinde Custom UI Integration Steps
+================================================
+
+OVERVIEW
+--------
+This folder contains branded sign-in, sign-up, password and verification
+pages that Kinde serves instead of its default screens. The app already
+uses Kinde PKCE redirects, so no app code changes once this UI is live.
+
+BEST PRACTICE
+-------------
+Publish the CONTENTS of this folder as its own GitHub repository.
+Kinde connects to a repository root, not a subfolder of another project.
+A separate repo also lets you update auth branding without redeploying
+the main Rota.Website app.
+
+PREREQUISITES
+-------------
+1. Kinde account with "Customize with code" enabled (usually Business plan
+   or above — check Kinde → Design → Customize with code).
+2. Your Kinde application callback URLs must include:
+     http://localhost:8080/callback
+     https://rota.website/callback
+   If you use a custom auth domain (auth.rota.website), also add:
+     https://auth.rota.website/callback
+3. Git installed locally and a GitHub account.
+
+STEP 1 — PUBLISH THIS FOLDER TO GITHUB
+--------------------------------------
+Open a terminal and run:
+
+    cp -r kinde-custom-ui /tmp/rota-kinde-ui
+    cd /tmp/rota-kinde-ui
+    git init
+    git add -A
+    git commit -m "Rota.Website custom auth UI"
+    git branch -M main
+    git remote add origin git@github.com:<YOUR_GITHUB_USERNAME>/rota-kinde-ui.git
+    git push -u origin main
+
+Replace <YOUR_GITHUB_USERNAME> with your real GitHub username or org.
+
+STEP 2 — CONNECT THE REPO IN KINDE
+----------------------------------
+1. Log in to Kinde.
+2. Go to Design → Customize with code.
+3. Click "Connect repository".
+4. Authorize GitHub if asked.
+5. Select the "rota-kinde-ui" repository and the "main" branch.
+6. Save.
+
+Kinde will build and serve the pages. Future pushes to "main" redeploy
+automatically.
+
+STEP 3 — (RECOMMENDED) USE A CUSTOM AUTH DOMAIN
+-------------------------------------------------
+This hides the .kinde.com URL from users.
+
+1. In Kinde, go to Settings → Domain management.
+2. Add domain: auth.rota.website
+3. Add the CNAME records Kinde gives you at your DNS provider.
+4. Wait for verification and SSL (usually minutes, up to 24 hours).
+
+Then update environment variables on BOTH sides so the issuer matches:
+
+  Frontend .env / .env.local:
+    VITE_KINDE_DOMAIN=https://auth.rota.website
+
+  Backend .env:
+    KINDE_DOMAIN=https://auth.rota.website
+
+If these two values do not match exactly, token validation will fail.
+
+STEP 4 — VERIFY CALLBACK URLS
+-----------------------------
+In Kinde → Applications → your Rota.Website app → Callback URLs,
+make sure these are listed:
+
+  http://localhost:8080/callback
+  https://rota.website/callback
+  https://auth.rota.website/callback   (only if using custom domain)
+
+STEP 5 — TEST THE FLOW
+----------------------
+1. Open the Rota.Website app.
+2. Click Sign in or Sign up.
+3. You should see the branded Rota.Website card, logo and fonts.
+4. Test:
+     - Existing user sign-in
+     - New user registration
+     - Password reset from the sign-in page
+     - Manager invite flow (uses registration intent)
+
+TROUBLESHOOTING
+---------------
+- "Customize with code" is greyed out:
+    Your Kinde plan does not include Custom UI. Upgrade the plan first.
+
+- Form does not appear / page looks blank:
+    Make sure every HTML page still contains <div id="kinde-widget"></div>.
+    Kinde injects the real form into that div.
+
+- Styles look wrong or unstyled:
+    Kinde's widget hooks can change. Check Kinde's current Custom UI docs
+    for the latest widget script URL and supported CSS selectors, then
+    update styles/main.css.
+
+- Token rejected / issuer mismatch after switching domain:
+    Ensure VITE_KINDE_DOMAIN and KINDE_DOMAIN are identical and include
+    the https:// prefix.
+
+FILES IN THIS PACKAGE
+---------------------
+  pages/sign_in.html        Email step
+  pages/sign_up.html        Registration
+  pages/enter_password.html Password entry
+  pages/enter_code.html     Email OTP
+  pages/mfa.html            2FA challenge
+  pages/reset_password.html New password
+  styles/main.css           Rota design system + Kinde widget hooks
+  assets/rota-website-logo.png
+  kinde.json                Page map Kinde reads
+  README.md                 Longer explanation
+  INTEGRATION.txt           This file
+
+NO APP CODE CHANGES NEEDED
+--------------------------
+src/lib/kinde.ts already sends users to Kinde with PKCE and the correct
+intent parameters:
+
+  prompt=create + start_page=registration  -> sign_up.html
+  login_hint=<email>                       -> pre-fills sign_in.html
+  prompt=login                             -> forces fresh credentials
+
+The custom UI simply replaces the default Kinde pages your users already
+land on.
