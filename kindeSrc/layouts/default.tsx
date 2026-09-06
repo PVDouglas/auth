@@ -14,8 +14,7 @@ const styles: {
     alignItems: "center",
     justifyContent: "center",
     padding: "2rem 1rem",
-    background:
-      "radial-gradient(1200px 800px at 15% 0%, rgba(196, 181, 253, 0.35), transparent 60%), radial-gradient(1000px 700px at 100% 100%, rgba(221, 214, 254, 0.4), transparent 55%), #f7f6fb",
+    background: "#ffffff",
     fontFamily:
       "Manrope, -apple-system, system-ui, BlinkMacSystemFont, Helvetica, Arial, sans-serif",
     color: "#221c33",
