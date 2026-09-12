@@ -200,7 +200,7 @@ export const DefaultLayout = (props: { children: React.ReactNode }) => {
       </main>
 
       <footer style={styles.footer} data-rota-footer>
-        <span>© {new Date().getFullYear()} Rota.Website — Operated as a UK sole trader.</span>
+        <span>© {new Date().getFullYear()} Rota.Website</span>
         <div style={styles.footerLinks}>
           <a href="https://rota.website/security" style={styles.footerLink}>Security</a>
           <a href="https://rota.website/privacy" style={styles.footerLink}>Privacy</a>
