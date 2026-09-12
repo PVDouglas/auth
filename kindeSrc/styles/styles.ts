@@ -153,6 +153,8 @@ export const getStyles = (): string => `
     [data-rota-footer] {
       align-items: flex-start !important;
       flex-direction: column !important;
+      gap: 1.5rem !important;
     }
+    [data-rota-footer-links] { justify-content: flex-start !important; }
   }
 `;

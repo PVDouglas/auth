@@ -124,27 +124,55 @@ const styles: Record<string, React.CSSProperties> = {
   },
   footer: {
     width: "100%",
-    maxWidth: "80rem",
+    maxWidth: "72rem",
     margin: "0 auto",
-    padding: "2.5rem 1.5rem",
+    padding: "2rem 1.25rem 2.5rem",
     boxSizing: "border-box",
     borderTop: "1px solid rgba(28, 28, 28, 0.09)",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    gap: "1rem",
+    gap: "1.5rem",
     color: "#6b6b6b",
-    fontSize: "0.8rem",
+    fontSize: "0.75rem",
+  },
+  footerBrand: {
+    display: "flex",
+    alignItems: "center",
+    gap: "0.625rem",
+    flexShrink: 0,
+    textDecoration: "none",
+    color: "#1c1c1c",
+  },
+  footerLogo: {
+    height: "1.75rem",
+    width: "1.75rem",
+    objectFit: "contain",
+  },
+  footerBrandName: {
+    color: "#1c1c1c",
+    fontSize: "0.875rem",
+    fontWeight: 600,
+    letterSpacing: "-0.025em",
+    whiteSpace: "nowrap",
   },
   footerLinks: {
     display: "flex",
     flexWrap: "wrap",
     alignItems: "center",
-    gap: "2rem",
+    justifyContent: "center",
+    gap: "0.5rem 1.25rem",
   },
   footerLink: {
     color: "#6b6b6b",
     textDecoration: "none",
+    whiteSpace: "nowrap",
+  },
+  footerCopy: {
+    color: "#6b6b6b",
+    fontSize: "0.6875rem",
+    whiteSpace: "nowrap",
+    flexShrink: 0,
   },
 };
 
@@ -200,13 +228,27 @@ export const DefaultLayout = (props: { children: React.ReactNode }) => {
       </main>
 
       <footer style={styles.footer} data-rota-footer>
-        <span>© {new Date().getFullYear()} Rota.Website</span>
-        <div style={styles.footerLinks}>
-          <a href="https://rota.website/security" style={styles.footerLink}>Security</a>
-          <a href="https://rota.website/privacy" style={styles.footerLink}>Privacy</a>
-          <a href="https://rota.website/terms" style={styles.footerLink}>Terms</a>
-          <a href="https://rota.website/cookies" style={styles.footerLink}>Cookies</a>
+        <a href="https://rota.website/" style={styles.footerBrand} aria-label="Rota.Website home">
+          <img
+            src="https://rota.website/rota-mark.png"
+            alt=""
+            aria-hidden="true"
+            style={styles.footerLogo}
+          />
+          <span style={styles.footerBrandName}>Rota.Website</span>
+        </a>
+        <div style={styles.footerLinks} data-rota-footer-links>
+          <a href="https://rota.website/#features" style={styles.footerLink}>Features</a>
+          <a href="https://rota.website/#pricing" style={styles.footerLink}>Pricing</a>
+          <a href="https://rota.website/#faq" style={styles.footerLink}>FAQ</a>
+          <a href="https://rota.website/login?mode=demo" style={styles.footerLink}>Demo</a>
+          <a href="https://rota.website/about" style={styles.footerLink}>About</a>
+          <a href="https://rota.website/support" style={styles.footerLink}>Support</a>
+          <a href="https://rota.website/contact" style={styles.footerLink}>Contact</a>
+          <a href="https://rota.website/login" style={styles.footerLink}>Sign in</a>
+          <a href="https://rota.website/signup" style={styles.footerLink}>Sign up</a>
         </div>
+        <span style={styles.footerCopy}>© {new Date().getFullYear()} Rota.Website</span>
       </footer>
     </div>
   );
