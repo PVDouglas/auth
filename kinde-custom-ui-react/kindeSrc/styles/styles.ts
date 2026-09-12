@@ -4,15 +4,15 @@
 const kindeVariables = {
   baseFontFamily:
     "Manrope, -apple-system, system-ui, BlinkMacSystemFont, Helvetica, Arial, sans-serif",
-  controlSelectTextBorderRadius: "14px",
+  controlSelectTextBorderRadius: "16px",
   buttonPrimaryBackgroundColor: "#1c1c1c",
   buttonPrimaryColor: "#ffffff",
-  buttonBorderRadius: "14px",
+  buttonBorderRadius: "16px",
   buttonSecondaryBackgroundColor: "rgba(255, 255, 255, 0.7)",
   buttonSecondaryBorderWidth: "1px",
   buttonSecondaryBorderColor: "rgba(28, 28, 28, 0.1)",
   buttonSecondaryBorderStyle: "solid",
-  buttonSecondaryBorderRadius: "14px",
+  buttonSecondaryBorderRadius: "16px",
 } as const;
 
 export const getStyles = (): string => `
@@ -38,12 +38,12 @@ export const getStyles = (): string => `
   [data-kinde-control-text],
   [data-kinde-control-select-text] {
     border: 1px solid rgba(28, 28, 28, 0.1) !important;
-    border-radius: 14px !important;
-    background: rgba(255, 255, 255, 0.7) !important;
+    border-radius: 16px !important;
+    background: #f9fafb !important;
     color: #1c1c1c !important;
-    font-size: 0.9rem !important;
-    min-height: 2.85rem !important;
-    padding: 0.72rem 0.9rem !important;
+    font-size: 0.95rem !important;
+    min-height: 3.25rem !important;
+    padding: 0.85rem 1rem !important;
   }
   [data-kinde-control-text]::placeholder {
     color: rgba(28, 28, 28, 0.35) !important;
@@ -59,9 +59,9 @@ export const getStyles = (): string => `
   /* Labels */
   [data-kinde-control-label] {
     color: #6b6b6b !important;
-    font-weight: 500 !important;
-    font-size: 0.69rem !important;
-    letter-spacing: 0.12em !important;
+    font-weight: 600 !important;
+    font-size: 0.72rem !important;
+    letter-spacing: 0.13em !important;
     text-transform: uppercase !important;
   }
 
@@ -70,9 +70,9 @@ export const getStyles = (): string => `
     background: #1c1c1c !important;
     color: #ffffff !important;
     font-weight: 500 !important;
-    font-size: 0.85rem !important;
-    min-height: 2.8rem !important;
-    padding: 0.75rem 1.4rem !important;
+    font-size: 0.95rem !important;
+    min-height: 3.25rem !important;
+    padding: 0.85rem 1.4rem !important;
     box-shadow: 0 10px 22px -12px rgba(20, 20, 25, 0.7) !important;
     transition: background 0.15s ease, transform 0.15s ease !important;
   }
@@ -117,7 +117,7 @@ export const getStyles = (): string => `
   [data-kinde-choice-separator] {
     text-transform: uppercase;
     color: #6b6b6b;
-    font-size: 0.66rem;
+    font-size: 0.7rem;
     letter-spacing: 0.14em;
   }
 
@@ -126,13 +126,15 @@ export const getStyles = (): string => `
   [data-kinde-layout-auth-buttons] {
     display: flex;
     justify-content: center;
+    gap: 1rem !important;
   }
   [data-kinde-layout-auth-buttons-item] {
-    width: 3rem;
-    height: 3rem;
+    width: 3.25rem;
+    height: 3.25rem;
   }
 
   [data-kinde-button-variant-secondary] {
+    border-radius: 16px !important;
     box-shadow: 0 5px 14px -12px rgba(20, 20, 25, 0.45) !important;
   }
 
@@ -146,7 +148,7 @@ export const getStyles = (): string => `
   }
 
   @media (max-width: 560px) {
-    [data-rota-header] { min-height: 3rem !important; }
+    [data-rota-header] { min-height: 3.5rem !important; }
     [data-rota-sign-in] { display: none !important; }
     [data-rota-footer] {
       align-items: flex-start !important;
