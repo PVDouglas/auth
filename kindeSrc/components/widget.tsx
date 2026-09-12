@@ -3,11 +3,7 @@
 import React from "react";
 import { getKindeWidget } from "@kinde/infrastructure";
 
-const styles: {
-  loginForm: React.CSSProperties;
-  heading: React.CSSProperties;
-  description: React.CSSProperties;
-} = {
+const styles: Record<string, React.CSSProperties> = {
   loginForm: {
     margin: "0 auto",
     display: "flex",
@@ -17,16 +13,18 @@ const styles: {
   heading: {
     fontFamily: "Sora, sans-serif",
     fontWeight: 600,
-    fontSize: "1.5rem",
+    fontSize: "1.6rem",
     letterSpacing: "-0.02em",
-    color: "#221c33",
-    margin: "0 0 0.35rem",
+    textAlign: "center",
+    color: "#1c1c1c",
+    margin: "0 0 0.4rem",
   },
   description: {
-    margin: "0 0 1.5rem",
-    fontSize: "0.95rem",
-    lineHeight: 1.55,
-    color: "#6b6480",
+    margin: "0 0 1.4rem",
+    textAlign: "center",
+    fontSize: "0.78rem",
+    lineHeight: 1.5,
+    color: "#6b6b6b",
   },
 };
 
@@ -39,3 +37,4 @@ export const Widget = (props: { heading: string; description: string }) => {
     </main>
   );
 };
+

@@ -1,18 +1,18 @@
 // Rota.Website design tokens applied to Kinde's widget CSS variables.
-// Palette: pearl background with a soft lavender wash, graphite-ink text,
-// midnight-aubergine primary, restrained lavender accent.
+// Matches the app's own sign-in screen: white/pearl background, frosted card,
+// graphite-ink primary buttons, Sora display + Manrope body.
 const kindeVariables = {
   baseFontFamily:
     "Manrope, -apple-system, system-ui, BlinkMacSystemFont, Helvetica, Arial, sans-serif",
-  controlSelectTextBorderRadius: "12px",
-  buttonPrimaryBackgroundColor: "#3b2d5c",
+  controlSelectTextBorderRadius: "14px",
+  buttonPrimaryBackgroundColor: "#1c1c1c",
   buttonPrimaryColor: "#ffffff",
-  buttonBorderRadius: "12px",
-  buttonSecondaryBackgroundColor: "rgba(255, 255, 255, 0.8)",
+  buttonBorderRadius: "14px",
+  buttonSecondaryBackgroundColor: "rgba(255, 255, 255, 0.7)",
   buttonSecondaryBorderWidth: "1px",
-  buttonSecondaryBorderColor: "#e2ddf0",
+  buttonSecondaryBorderColor: "rgba(28, 28, 28, 0.1)",
   buttonSecondaryBorderStyle: "solid",
-  buttonSecondaryBorderRadius: "12px",
+  buttonSecondaryBorderRadius: "14px",
 } as const;
 
 export const getStyles = (): string => `
@@ -29,50 +29,56 @@ export const getStyles = (): string => `
     --kinde-button-secondary-border-radius: ${kindeVariables.buttonSecondaryBorderRadius};
   }
 
-  body { margin: 0; }
+  body { margin: 0; background: #ffffff; }
 
   /* Inputs — readable text, refined borders */
   [data-kinde-control-text],
   [data-kinde-control-select-text] {
-    border: 1px solid #e2ddf0 !important;
-    border-radius: 12px !important;
-    background: rgba(255, 255, 255, 0.9) !important;
-    color: #221c33 !important;
-    font-size: 0.95rem !important;
-    padding: 0.75rem 0.9rem !important;
+    border: 1px solid rgba(28, 28, 28, 0.1) !important;
+    border-radius: 14px !important;
+    background: rgba(255, 255, 255, 0.7) !important;
+    color: #1c1c1c !important;
+    font-size: 0.9rem !important;
+    padding: 0.7rem 0.9rem !important;
   }
   [data-kinde-control-text]::placeholder {
-    color: #a49db8 !important;
+    color: rgba(28, 28, 28, 0.35) !important;
   }
   [data-kinde-control-text]:focus,
   [data-kinde-control-select-text]:focus {
-    border-color: #3b2d5c !important;
-    box-shadow: 0 0 0 3px rgba(59, 45, 92, 0.12) !important;
+    border-color: rgba(28, 28, 28, 0.35) !important;
+    background: #ffffff !important;
+    box-shadow: 0 0 0 4px rgba(28, 28, 28, 0.08) !important;
     outline: none !important;
   }
 
   /* Labels */
   [data-kinde-control-label] {
-    color: #4a4360 !important;
-    font-weight: 600 !important;
-    font-size: 0.85rem !important;
+    color: #6b6b6b !important;
+    font-weight: 500 !important;
+    font-size: 0.69rem !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
   }
 
   /* Primary button */
   [data-kinde-button-variant-primary] {
-    background: #3b2d5c !important;
+    background: #1c1c1c !important;
     color: #ffffff !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.01em !important;
-    transition: background 0.15s ease, transform 0.1s ease !important;
+    font-weight: 500 !important;
+    font-size: 0.85rem !important;
+    padding: 0.75rem 1.4rem !important;
+    box-shadow: 0 10px 22px -12px rgba(20, 20, 25, 0.7) !important;
+    transition: background 0.15s ease, transform 0.15s ease !important;
   }
   [data-kinde-button-variant-primary]:hover {
-    background: #2f2449 !important;
+    background: #000000 !important;
+    transform: translateY(-1px);
   }
 
   /* Password visibility toggle — keep visible and clickable */
   [data-kinde-control-show-hide-button] {
-    color: #6b6480 !important;
+    color: #6b6b6b !important;
     display: inline-flex !important;
     align-items: center !important;
   }
@@ -86,26 +92,30 @@ export const getStyles = (): string => `
   [data-kinde-control-code-character] {
     width: 3rem !important;
     height: 3.25rem !important;
-    border: 1px solid #e2ddf0 !important;
+    border: 1px solid rgba(28, 28, 28, 0.1) !important;
     border-radius: 12px !important;
+    font-family: Sora, sans-serif !important;
     font-size: 1.35rem !important;
     text-align: center !important;
-    color: #221c33 !important;
-    background: rgba(255, 255, 255, 0.9) !important;
+    color: #1c1c1c !important;
+    background: rgba(255, 255, 255, 0.75) !important;
   }
 
   /* Links */
   [data-kinde-root] a {
-    color: #3b2d5c !important;
+    color: #1c1c1c !important;
+    font-weight: 500 !important;
   }
+
 
   /* Choice separator */
   [data-kinde-choice-separator] {
     text-transform: uppercase;
-    color: #6b6480;
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
+    color: #6b6b6b;
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
   }
+
 
   /* Social auth buttons */
   [data-kinde-layout-auth-buttons] {
