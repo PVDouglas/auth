@@ -29,7 +29,10 @@ export const getStyles = (): string => `
     --kinde-button-secondary-border-radius: ${kindeVariables.buttonSecondaryBorderRadius};
   }
 
-  body { margin: 0; background: #ffffff; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f9faff; }
+
+  [data-kinde-root] { min-height: 100vh; }
 
   /* Inputs — readable text, refined borders */
   [data-kinde-control-text],
@@ -39,7 +42,8 @@ export const getStyles = (): string => `
     background: rgba(255, 255, 255, 0.7) !important;
     color: #1c1c1c !important;
     font-size: 0.9rem !important;
-    padding: 0.7rem 0.9rem !important;
+    min-height: 2.85rem !important;
+    padding: 0.72rem 0.9rem !important;
   }
   [data-kinde-control-text]::placeholder {
     color: rgba(28, 28, 28, 0.35) !important;
@@ -67,6 +71,7 @@ export const getStyles = (): string => `
     color: #ffffff !important;
     font-weight: 500 !important;
     font-size: 0.85rem !important;
+    min-height: 2.8rem !important;
     padding: 0.75rem 1.4rem !important;
     box-shadow: 0 10px 22px -12px rgba(20, 20, 25, 0.7) !important;
     transition: background 0.15s ease, transform 0.15s ease !important;
@@ -102,7 +107,7 @@ export const getStyles = (): string => `
   }
 
   /* Links */
-  [data-kinde-root] a {
+  [data-kinde-root] main a {
     color: #1c1c1c !important;
     font-weight: 500 !important;
   }
@@ -127,8 +132,25 @@ export const getStyles = (): string => `
     height: 3rem;
   }
 
+  [data-kinde-button-variant-secondary] {
+    box-shadow: 0 5px 14px -12px rgba(20, 20, 25, 0.45) !important;
+  }
+
   /* Errors */
   [data-kinde-control-error-message] {
     color: #b3362b !important;
+  }
+
+  @media (max-width: 980px) {
+    [data-rota-nav] { display: none !important; }
+  }
+
+  @media (max-width: 560px) {
+    [data-rota-header] { min-height: 3rem !important; }
+    [data-rota-sign-in] { display: none !important; }
+    [data-rota-footer] {
+      align-items: flex-start !important;
+      flex-direction: column !important;
+    }
   }
 `;
