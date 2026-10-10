@@ -184,7 +184,7 @@ const navLinks = [
   ["Demo", "https://rota.website/login?mode=demo"],
   ["Corporate", "https://rota.website/corporate"],
   ["About", "https://rota.website/about"],
-  ["Support", "https://rota.website/support"],
+  ["Support", "https://rota.website/help"],
   ["Contact", "https://rota.website/contact"],
 ] as const;
 
@@ -243,7 +243,7 @@ export const DefaultLayout = (props: { children: React.ReactNode }) => {
           <a href="https://rota.website/#faq" style={styles.footerLink}>FAQ</a>
           <a href="https://rota.website/login?mode=demo" style={styles.footerLink}>Demo</a>
           <a href="https://rota.website/about" style={styles.footerLink}>About</a>
-          <a href="https://rota.website/support" style={styles.footerLink}>Support</a>
+          <a href="https://rota.website/help" style={styles.footerLink}>Support</a>
           <a href="https://rota.website/contact" style={styles.footerLink}>Contact</a>
           <a href="https://rota.website/login" style={styles.footerLink}>Sign in</a>
           <a href="https://rota.website/signup" style={styles.footerLink}>Sign up</a>
